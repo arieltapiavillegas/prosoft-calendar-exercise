@@ -17,64 +17,85 @@ $(
 
 function processInput(formObj)
 {
-	var input_date = null;
-	var input_days = null;
-	var input_country = null;
+	var values = parse_form(formObj);
+	if(values.result === false)
+	{
+		alert(values.msg);
+		return;
+	}
+	
+}
+
+function parse_form(formObj)
+{
+	var output = {
+		result : true,
+		msg    : '',
+		date : null,
+		days : null,
+		country : null
+	};
 
 	// date validation
 	try
 	{
-		input_date = formObj.date_in.value;
-		if(input_date === '')
+		output.date = formObj.date_in.value;
+		if(output.date === '')
 		{
 			throw 'Field is required';
 		}
-		input_date = stringToDate(input_date, 'mm/dd/yyyy', '/');
+		output.date = stringToDate(output.date, 'mm/dd/yyyy', '/');
 	}
 	catch(e)
 	{
-		alert('Start Date error: ' + e);
+		output.result = false;
+		output.msg = 'Start Date error: ' + e;
+		return output;
 	}
 
 	// days validation
 	try
 	{
-		input_days = formObj.days_in.value;
-		if(input_days === '')
+		output.days = formObj.days_in.value;
+		if(output.days === '')
 		{
 			throw 'field is required';
 		}
-		input_days = parseInt(input_days);
-		if(input_days <= 0)
+		output.days = parseInt(output.days);
+		if(output.days <= 0)
 		{
 			throw 'number must be greater than 0';
 		}
 	}
 	catch(e)
 	{
-		alert('Number of days error: ' + e);
+		output.result = false;
+		output.msg = 'Number of days error: ' + e;
+		return output;
 	}
 
 	// country validation
 	try
 	{
-		input_country = formObj.country_in.value.toUpperCase();
-		if(input_country.length === 0)
+		output.country = formObj.country_in.value.toUpperCase();
+		if(output.country.length === 0)
 		{
 			throw 'field is required';
 		}
 
-		if(input_country.length !== 2)
+		if(output.country.length !== 2)
 		{
 			throw '2 letters country code is required';
 		}
 	}
 	catch(e)
 	{
-		alert('Country Code error: ' + e);
+		output.result = false;
+		output.msg = 'Country Code error: ' + e;
+		return output;
 	}
-
 	
+	return output;
 }
 
 
