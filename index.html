@@ -8,6 +8,8 @@
 		<link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 		<!-- jQuery date time picker -->
 		<link href="assets/jquery-datetimepicker/jquery.datetimepicker.css" rel="stylesheet" type="text/css"/>
+		<!-- Custom styles -->
+		<link href="custom/custom.css" rel="stylesheet" type="text/css"/>
 	</head>
 	<body>
 		<div class="container">
@@ -41,15 +43,45 @@
 				<div class="panel-heading">
 					<h3>Output</h3>
 				</div>
-				<div class="panel-body">
+				<div id="outputPanel" class="panel-body">
 
 				</div>
 			</div>
-
-
-
-
 		</div>
+
+
+		<!-- Mustache Template -->
+		<style id="template" type="text/template">
+			<div>
+				{{#years}}
+				<h1>{{yearnumber}}</h1>
+
+				{{#months}}
+				<h2>{{monthname}}</h2>
+
+				<table border="0">
+					<tbody>
+						{{#weeks}}
+						<tr>
+							{{#days}}
+							<td id="{{date}}" class="text-center {{color}}" style="width:40px; height: 30px; border: solid 1px #000;">
+								{{day}}
+							</td>
+							{{/days}}
+						</tr>
+						{{/weeks}}
+					</tbody>
+				</table>
+
+
+				{{/months}}
+
+				{{/years}}
+			</div>
+		</style>
+		<!-- Mustache Template END -->
+
+
 		<!-- jQuery -->
 		<script src="assets/jquery/jquery-3.2.1.min.js" type="text/javascript"></script>
 		<!-- Mustache template engine -->
